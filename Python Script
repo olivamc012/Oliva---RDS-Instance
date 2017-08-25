@@ -1,0 +1,21 @@
+# Python script to connect to RDS Instance
+
+hostname = 'testinstance.cuprnqmjai1h.us-east-2.rds.amazonaws.com'
+username = 'testuser'
+password = '*********'
+database = 'masterdb'
+
+# Simple routine to run a query on a database and print the results:
+def doQuery( conn ) :
+    cur = conn.cursor()
+
+    cur.execute( "SELECT fname, lname FROM employee" )
+
+    for firstname, lastname in cur.fetchall() :
+        print firstname, lastname
+
+print "Using pymysql…"
+import pymysql
+myConnection = pymysql.connect( host=hostname, user=username, passwd=password, db=database )
+doQuery( myConnection )
+myConnection.close()
